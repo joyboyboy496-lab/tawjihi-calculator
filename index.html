@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>حساب 30% لمعدل الفصل الأول</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        h2 {
+            color: #1e90ff;
+        }
+        .subject {
+            margin: 15px 0;
+        }
+        label {
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+        input {
+            padding: 10px;
+            width: 80px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .max-score {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            font-size: 26px;
+            font-weight: bold;
+            color: #28a745;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>حساب 30% لمعدل الفصل الأول</h2>
+        <p>(المواد الأساسية الأربع)</p>
+        
+        <div class="subject">
+            <label>اللغة العربية:</label>
+            <input type="number" id="arabic" min="0" max="100" placeholder="0-100">
+            <div class="max-score">(النهاية العظمى: 100)</div>
+        </div>
+        
+        <div class="subject">
+            <label>اللغة الإنجليزية:</label>
+            <input type="number" id="english" min="0" max="100" placeholder="0-100">
+            <div class="max-score">(النهاية العظمى: 100)</div>
+        </div>
+        
+        <div class="subject">
+            <label>تاريخ الأردن:</label>
+            <input type="number" id="history" min="0" max="40" placeholder="0-40">
+            <div class="max-score">(النهاية العظمى: 40)</div>
+        </div>
+        
+        <div class="subject">
+            <label>التربية الإسلامية:</label>
+            <input type="number" id="islamic" min="0" max="60" placeholder="0-60">
+            <div class="max-score">(النهاية العظمى: 60)</div>
+        </div>
+        
+        <button onclick="calculate()">احسب المعدل</button>
+        
+        <div class="result" id="result">
+            المعدل (30%): 0.00
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            // الحصول على قيم العلامات
+            let arabic = parseFloat(document.getElementById('arabic').value) || 0;
+            let english = parseFloat(document.getElementById('english').value) || 0;
+            let history = parseFloat(document.getElementById('history').value) || 0;
+            let islamic = parseFloat(document.getElementById('islamic').value) || 0;
+            
+            // التأكد من أن القيم ضمن الحدود المسموحة
+            arabic = Math.min(Math.max(arabic, 0), 100);
+            english = Math.min(Math.max(english, 0), 100);
+            history = Math.min(Math.max(history, 0), 40);
+            islamic = Math.min(Math.max(islamic, 0), 60);
+            
+            // حساب المجموع الكلي (من 300 بدلاً من 400)
+            let total = arabic + english + history + islamic;
+            
+            // حساب المعدل (30% من المجموع النسبي)
+            let average = (total / 300) * 30;
+            
+            // عرض النتيجة
+            document.getElementById('result').innerHTML = 
+                `المعدل (30%): <span style="color: #28a745;">${average.toFixed(2)}</span>`;
+        }
+        
+        // إمكانية الحساب بالضغط على Enter في أي حقل
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    calculate();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
